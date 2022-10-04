@@ -13,7 +13,7 @@
 glm::mat4
 Multiply( glm::mat4 a, glm::mat4 b )
 {
-	???
+	return a * b;
 }
 
 
@@ -21,7 +21,9 @@ Multiply( glm::mat4 a, glm::mat4 b )
 glm::vec3
 Multiply( glm::mat4 a, glm::vec3 b )
 {
-	???
+	glm::vec3 c;
+
+    return c;
 }
 
 
@@ -29,7 +31,9 @@ Multiply( glm::mat4 a, glm::vec3 b )
 glm::vec3
 ScalePointAroundAnotherPoint( glm::vec3 inputPoint, glm::vec3 centerPoint, glm::vec3 scale )
 {
-	???
+	glm::vec3 scaledPoint;
+
+    return scaledPoint;
 }
 
 
@@ -37,15 +41,15 @@ ScalePointAroundAnotherPoint( glm::vec3 inputPoint, glm::vec3 centerPoint, glm::
 glm::vec3
 RotatePointAroundAnotherPoint( glm::vec3 inputPoint, glm::vec3 centerPoint, glm::mat4 first, glm::mat4 second, glm::mat4 third )
 {
-	???
+	glm::vec3 rotatedPoint
 }
 
 
 void
 WhoAmI( std::string &yourName, std::string &yourEmailAddress )
 {
-	yourName = "Joe Graphics";
-	yourEmailAddress = "jgraphics@oregonstate.edu" ;
+	yourName = "Grace Todd";
+	yourEmailAddress = "toddgr@oregonstate.edu" ;
 }
 
 
