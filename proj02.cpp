@@ -65,9 +65,12 @@ ScalePointAroundAnotherPoint( glm::vec3 inputPoint, glm::vec3 centerPoint, glm::
 	glm::mat4 identity = glm::mat4(1.);
 	glm::mat4 scalingMatrix = glm::scale(identity, scale);
 
-	// Apply scaling to point
-	glm::vec4 relativePointMatrix = scalingMatrix * glm::vec4(relativePoint, 1.);
-	glm::vec3 resultPoint = glm::vec3(relativePointMatrix);
+	// // Apply scaling to point
+	// glm::vec4 relativePointMatrix = scalingMatrix * glm::vec4(relativePoint, 1.);
+	// glm::vec3 resultPoint = glm::vec3(relativePointMatrix);
+	glm::vec3 resultPoint = Multiply(scalingMatrix, relativePoint);
+	fprintf( stderr, "  %7.2f %7.2f %7.2f %7.2f\n", resultPoint[0], resultPoint[1], resultPoint[2] );
+	
 
 	// Return the scaled point, transformed back from the origin:
     return resultPoint + centerPoint;
@@ -88,7 +91,7 @@ RotatePointAroundAnotherPoint( glm::vec3 inputPoint, glm::vec3 centerPoint, glm:
 	glm::vec4 rotateThird = third * rotateSecond;
 
 	// Convert vec4 back to vec3
-	glm::vec3 resultPoint = glm::vec3(rotatedPoint);
+	glm::vec3 resultPoint = glm::vec3(rotateThird);
 
 	// Return the rotated point, transformed back from the origin:
 	return resultPoint + centerPoint;
