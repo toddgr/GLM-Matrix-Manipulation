@@ -20,11 +20,11 @@
 #include <cmath>
 
 #define GLM_FORCE_RADIANS
-#include "glm/glm/vec2.hpp"
-#include "glm/glm/vec3.hpp"
-#include "glm/glm/mat4x4.hpp"
-#include "glm/glm/gtc/matrix_transform.hpp"
-#include "glm/glm/gtc/matrix_inverse.hpp"
+#include "glm/vec2.hpp"
+#include "glm/vec3.hpp"
+#include "glm/mat4x4.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/matrix_inverse.hpp"
 
 
 glm::mat4
@@ -57,16 +57,25 @@ Multiply( glm::mat4 a, glm::vec3 b )
 glm::vec3
 ScalePointAroundAnotherPoint( glm::vec3 inputPoint, glm::vec3 centerPoint, glm::vec3 scale )
 {
-	glm::vec3 scaledPoint = a;
+	// Create a scaling matrix and apply it to a point, returning the resulting point
+	glm::vec3 relativePoint = inputPoint - centerPoint;
+	
+	glm::mat4 identity = glm::mat4(1.);
+	glm::mat4 scalingMatrix = glm::scale(identity, scale);
 
-    return scaledPoint;
+	glm::vec4 relativePointMatrix = scalingMatrix * glm::vec4(relativePoint);
+	glm::vec3 resultPoint = glm::vec3(relativePointMatrix);
+
+	// Translate 
+
+    return resultPoint + centerPoint;
 }
 
 
 glm::vec3
 RotatePointAroundAnotherPoint( glm::vec3 inputPoint, glm::vec3 centerPoint, glm::mat4 first, glm::mat4 second, glm::mat4 third )
 {
-	glm::vec3 rotatedPoint = a;
+	glm::vec3 rotatedPoint = inputPoint;
 	return rotatedPoint;
 }
 
