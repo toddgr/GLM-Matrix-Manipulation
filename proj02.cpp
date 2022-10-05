@@ -72,12 +72,12 @@ ScalePointAroundAnotherPoint( glm::vec3 inputPoint, glm::vec3 centerPoint, glm::
 }
 
 
-glm::vec3
-RotatePointAroundAnotherPoint( glm::vec3 inputPoint, glm::vec3 centerPoint, glm::mat4 first, glm::mat4 second, glm::mat4 third )
-{
-	glm::vec3 rotatedPoint = inputPoint;
-	return rotatedPoint;
-}
+// glm::vec3
+// RotatePointAroundAnotherPoint( glm::vec3 inputPoint, glm::vec3 centerPoint, glm::mat4 first, glm::mat4 second, glm::mat4 third )
+// {
+// 	glm::vec3 rotatedPoint = inputPoint;
+// 	return rotatedPoint;
+// }
 
 
 void
@@ -95,4 +95,13 @@ PrintMatrix( glm::mat4 mat )
 	{
 		fprintf( stderr, "  %7.2f %7.2f %7.2f %7.2f\n", mat[row][0], mat[row][1], mat[row][2], mat[row][3] );
 	}
+}
+
+/********************************
+		MAIN FUNCTION
+	(Comment out for submission)
+*********************************/
+
+int main() {
+	return 0;
 }
