@@ -33,7 +33,7 @@ Multiply( glm::mat4 a, glm::mat4 b )
 	// Multiplication between two 4x4 matrices is fairly straightforward
 	// Since there is no conversion needed, GLM lets you just multiply
 
-	return a * b;
+	return b * a;
 }
 
 
@@ -78,10 +78,20 @@ glm::vec3
 RotatePointAroundAnotherPoint( glm::vec3 inputPoint, glm::vec3 centerPoint, glm::mat4 first, glm::mat4 second, glm::mat4 third )
 {
 	// Rotates inputPoint by multiplying it by first, 
-	// then multiplying it by seccond, then multiplying it by third.
+	// then multiplying it by second, then multiplying it by third.
 	// Translate point before applying rotation matrices:
 	glm::vec3 rotatedPoint = inputPoint - centerPoint;
-	return rotatedPoint + centerPoint;
+
+	// Multiply by the 1-3 matrices:
+	glm::vec4 rotateFirst = first * glm::vec4(rotatedPoint, 1.);
+	glm::vec4 rotateSecond = second * rotateFirst;
+	glm::vec4 rotateThird = third * rotateSecond;
+
+	// Convert vec4 back to vec3
+	glm::vec3 resultPoint = glm::vec3(rotatedPoint);
+
+	// Return the rotated point, transformed back from the origin:
+	return resultPoint + centerPoint;
 }
 
 
@@ -107,6 +117,53 @@ PrintMatrix( glm::mat4 mat )
 	(Comment out for submission)
 *********************************/
 
-int main() {
-	return 0;
+// Global variables for test functions
+glm::vec4 aVec = glm::vec4(1., 1., 1., 1.);
+glm::vec4 bVec = glm::vec4(0., 0., 1., 1.);
+glm::vec4 cVec = glm::vec4(1., 0., 0., 1.);
+glm::vec4 dVec = glm::vec4(1., 1., 0., 0.);
+
+glm::vec3 aVec3 = glm::vec3(1., 1., 1.);
+glm::vec3 bVec3 = glm::vec3(0., 0., 1.);
+glm::vec3 cVec3 = glm::vec3(1., 0., 0.);
+glm::vec3 dVec3 = glm::vec3(1., 1., 0.);
+
+glm::mat4 aMat = glm::mat4(aVec, bVec, cVec, dVec);
+glm::mat4 bMat = glm::mat4(dVec, cVec, bVec, aVec);
+glm::mat4 cMat = glm::mat4(cVec, cVec, cVec, cVec);
+
+
+void testMultiplyMats() {
+	printf("----------- Multiply mat4s ---------\n");
+	printf("a: \n");
+	PrintMatrix(aMat);
+	printf("b: \n");
+	PrintMatrix(bMat);
+	printf("====================================\n");
+	glm::mat4 multMat = Multiply(aMat, bMat);
+	PrintMatrix(multMat);
+	printf("\n");
 }
+
+
+void testMultiplyMatVec() {
+	printf("----------- Multiply mat4/vec3 ---------\n");
+	printf("mat4: \n");
+	PrintMatrix(aMat);
+	printf("vec3: \n");
+	fprintf( stderr, "  %7.2f %7.2f %7.2f %7.2f\n", bVec3[0], bVec3[1], bVec3[2] );
+	printf("====================================\n");
+	glm::vec3 multVec = Multiply(aMat, bVec3);
+	fprintf( stderr, "  %7.2f %7.2f %7.2f %7.2f\n", multVec[0], multVec[1], multVec[2] );
+	printf("\n");
+}
+
+
+// int main() {
+// 	// Test functions with print statements
+// 	testMultiplyMats();
+// 	testMultiplyMatVec();
+	
+// 	return 0;
+// }
+
