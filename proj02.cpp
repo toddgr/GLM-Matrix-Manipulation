@@ -26,6 +26,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/matrix_inverse.hpp"
 
+void PrintMatrix(glm::mat4);
 
 glm::mat4
 Multiply( glm::mat4 a, glm::mat4 b )
@@ -33,7 +34,7 @@ Multiply( glm::mat4 a, glm::mat4 b )
 	// Multiplication between two 4x4 matrices is fairly straightforward
 	// Since there is no conversion needed, GLM lets you just multiply
 
-	return b * a;
+	return a * b;
 }
 
 
@@ -69,8 +70,11 @@ ScalePointAroundAnotherPoint( glm::vec3 inputPoint, glm::vec3 centerPoint, glm::
 	// glm::vec4 relativePointMatrix = scalingMatrix * glm::vec4(relativePoint, 1.);
 	// glm::vec3 resultPoint = glm::vec3(relativePointMatrix);
 	glm::vec3 resultPoint = Multiply(scalingMatrix, relativePoint);
-	fprintf( stderr, "  %7.2f %7.2f %7.2f %7.2f\n", resultPoint[0], resultPoint[1], resultPoint[2] );
-	
+	// fprintf( stderr, "\ncenterpoint:\n  %7.2f %7.2f %7.2f\n\n", centerPoint[0], centerPoint[1], centerPoint[2] );
+	// fprintf( stderr, "\n  %7.2f %7.2f %7.2f\n\n", relativePoint[0], relativePoint[1], relativePoint[2] );
+	// PrintMatrix(scalingMatrix);
+	// fprintf( stderr, "\n=  %7.2f %7.2f %7.2f\n", resultPoint[0], resultPoint[1], resultPoint[2] );
+	// fprintf( stderr, "\nreturns:\n  %7.2f %7.2f %7.2f\n", resultPoint[0]+ centerPoint[0], resultPoint[1]+ centerPoint[1], resultPoint[2]+ centerPoint[2] );
 
 	// Return the scaled point, transformed back from the origin:
     return resultPoint + centerPoint;
